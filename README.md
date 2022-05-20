@@ -31,8 +31,7 @@ to forge a new, more transparent system that can serve them directly.
 - Deleting a squeak costs a fee of `blocks elapsed x deletion fee`.
 - Every squeak has a "virality" coefficient that is tracked on-chain.
 - When a squeak goes "viral", future profits from that point on are split
-  among the owner and everbody who has positively interacted up until that
-  point.
+  among the owner and those who helped it go viral (likers & resqueakers).
 
 ## Project Roadmap
 
