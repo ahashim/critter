@@ -1,3 +1,6 @@
 [submodule "algorithms"]
 	path = algorithms
 	url = git@github.com:ahashim/algorithms.git
+[submodule "smart-contracts"]
+	path = smart-contracts
+	url = git@github.com:ahashim/smart-contracts.git
