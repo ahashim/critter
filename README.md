@@ -40,7 +40,7 @@ The Critter monorepo and all of its submodules can be installed by cloning the
 project recursively:
 
 ```zsh
-git clone  https://github.com/ahashim/critter.git --recursive
+git clone https://github.com/ahashim/critter.git --recursive
 ```
 
 ## Project Roadmap
