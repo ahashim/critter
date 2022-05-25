@@ -2,6 +2,13 @@
 
 ### A peer-to-peer microblogging NFT platform for EVM-like blockchains
 
+- [Core Concepts](#core-concepts)
+- [Installation](#installation)
+- [Project Roadmap](#project-roadmap)
+- [Architecture](#architecture)
+
+## Core concepts
+
 Given the advertising and data-mining middlemen of traditional digital content,
 the emerging NFT market for said content, and the crypto startups merely
 mimicking the same old dynamics, Critter was born.
@@ -10,13 +17,6 @@ Utilizing ownership fundamentals and financial incentives, Critter consolidates
 the full content pipeline – creation, virality, and reward. Through that
 process, it aims to empower makers to leverage the possibilities of blockchain
 to forge a new, more transparent system that can serve them directly.
-
-- [Core Concepts](#core-concepts)
-- [Installation](#installation)
-- [Project Roadmap](#project-roadmap)
-- [Architecture](#architecture)
-
-## Core concepts
 
 - Every address is a unique username.
 - Every post (called a squeak) is an NFT.
