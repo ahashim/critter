@@ -12,6 +12,7 @@ process, it aims to empower makers to leverage the possibilities of blockchain
 to forge a new, more transparent system that can serve them directly.
 
 - [Core Concepts](#core-concepts)
+- [Installation](#installation)
 - [Project Roadmap](#project-roadmap)
 - [Architecture](#architecture)
 
@@ -32,6 +33,15 @@ to forge a new, more transparent system that can serve them directly.
 - Every squeak has a "virality" coefficient that is tracked on-chain.
 - When a squeak goes "viral", future profits from that point on are split
   among the owner and those who helped it go viral (likers & resqueakers).
+
+## Installation
+
+The Critter monorepo and all of its submodules can be installed by cloning the
+project recursively:
+
+```zsh
+git clone  https://github.com/ahashim/critter.git --recursive
+```
 
 ## Project Roadmap
 
