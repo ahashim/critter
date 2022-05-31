@@ -57,8 +57,8 @@ git clone https://github.com/ahashim/critter.git --recursive
 - [x] Disliking a squeak & undoing a dislike.
 - [x] Resqueaking & undoing a resqueak.
 - [x] Adding a `withdraw` function to transfer funds out from the treasury.
+- [x] Develop & implement "virality" algorithm.
 - [ ] Adding functions to update platform fees.
-- [ ] Develop & implement "virality" algorithm.
 - [ ] Account funding via ERC-20 compatible tokens.
 - [ ] Auction mechanism to bid on posted squeaks
   - Ideally [Vickrey auctions](https://github.com/JoWxW/Vickrey-Auction/blob/master/contracts/VickreyAuction.sol).
