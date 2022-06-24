@@ -60,22 +60,19 @@ git clone https://github.com/ahashim/critter.git --recursive
 - [x] Develop & implement "virality" algorithm.
 - [x] Scout & scout pool payments.
 - [x] Treasurer ability to manage platform fees for different interactions.
-- [ ] Moderation
-  - Implement basic moderation status on account structs:
-    `{Active, Suspended, Banned}`
-  - Off-chain content reporting.
-- [ ] Auction mechanism to bid on posted squeaks
+- [ ] Implement basic moderation status on accounts: `enum Status = {Active, Suspended, Banned}`.
+- [ ] Auction mechanism to bid on posted squeaks.
   - Ideally [Vickrey auctions](https://github.com/JoWxW/Vickrey-Auction/blob/master/contracts/VickreyAuction.sol).
 - [ ] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
 - [ ] Fuzz testing with [Echidna](https://github.com/crytic/echidna).
 - [ ] Deploy to an EVM compatible layer 2 solution [zkSync](https://portal.zksync.io/).
-- [ ] Account funding via ERC-20 compatible tokens.
 - [ ] Media support for squeaks via IPFS (images, video, documents,
       etc&hellip;).
   - Can use a pinning service such as [Pinata](https://www.pinata.cloud/) for
     writes, and [Cloudflare IPFS](https://cloudflare-ipfs.com/ipns/ipfs.io/)
     for reads.
 - [ ] Support for transaction-hash based generative art 🎨.
+- [ ] Account funding via ERC-20 compatible tokens.
 
 ## Architecture
 
