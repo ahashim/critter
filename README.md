@@ -60,7 +60,7 @@ git clone https://github.com/ahashim/critter.git --recursive
 - [x] Develop & implement "virality" algorithm.
 - [x] Scout & scout pool payments.
 - [x] Treasurer ability to manage platform fees for different interactions.
-- [ ] Implement basic moderation status on accounts: `enum Status = {Active, Suspended, Banned}`.
+- [x] Account moderation via account statuses.
 - [ ] Auction mechanism to bid on posted squeaks.
   - Ideally [Vickrey auctions](https://github.com/JoWxW/Vickrey-Auction/blob/master/contracts/VickreyAuction.sol).
 - [ ] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
