@@ -72,7 +72,6 @@ git clone https://github.com/ahashim/critter.git --recursive
     writes, and [Cloudflare IPFS](https://cloudflare-ipfs.com/ipns/ipfs.io/)
     for reads.
 - [ ] Support for transaction-hash based generative art 🎨.
-- [ ] Account funding via ERC-20 compatible tokens.
 
 ## Architecture
 
