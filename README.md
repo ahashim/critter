@@ -4,8 +4,8 @@
 
 - [Core Concepts](#core-concepts)
 - [Installation](#installation)
-- [Project Roadmap](#project-roadmap)
 - [Architecture](#architecture)
+- [Project Roadmap](#project-roadmap)
 
 ## Core concepts
 
@@ -42,38 +42,6 @@ project recursively:
 ```zsh
 git clone git@github.com:ahashim/critter.git --recursive
 ```
-
-## Project Roadmap
-
-- [x] ERC721 interface compatability.
-- [x] Create account.
-- [x] Update username.
-- [x] Post squeak.
-- [x] Delete squeak.
-- [x] Upgradeable contracts via [UUPS proxy pattern](https://docs.openzeppelin.com/contracts/4.x/api/proxy#UUPSUpgradeable).
-- [x] `CRTTR` console for local contract interaction.
-- [x] Platform Fees + P2P user payments.
-- [x] Liking a squeak & undoing a like.
-- [x] Disliking a squeak & undoing a dislike.
-- [x] Resqueaking & undoing a resqueak.
-- [x] Adding a `withdraw` function to transfer funds out from the treasury.
-- [x] Develop & implement "virality" algorithm.
-- [x] Scout & scout pool payments.
-- [x] Treasurer ability to manage platform fees for different interactions.
-- [x] Account moderation via account statuses.
-- [ ] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
-- [ ] Fuzz testing with [Echidna](https://github.com/crytic/echidna).
-- [ ] Deploy to an EVM compatible layer 2 solution [zkSync](https://portal.zksync.io/).
-  - Ensure its deployed via UUPS upgradeable proxy.
-- [ ] Auction mechanism to bid on posted squeaks.
-  - Ideally [Vickrey auctions](https://github.com/JoWxW/Vickrey-Auction/blob/master/contracts/VickreyAuction.sol).
-- [ ] Media support for squeaks via IPFS (images, video, documents,
-      etc&hellip;).
-  - Can use a pinning service such as [Pinata](https://www.pinata.cloud/) for
-    writes, and [Cloudflare IPFS](https://cloudflare-ipfs.com/ipns/ipfs.io/)
-    for reads.
-- [ ] Support for transaction-hash based generative art 🎨.
-- [ ] Native mobile app.
 
 ## Architecture
 
@@ -139,3 +107,37 @@ git clone git@github.com:ahashim/critter.git --recursive
 - API keys generated on a per client basis via `auth-service` to directly have
   clients hit search servers (with limited permissions).
 - Deploy across regions ([render.com](https://render.com)).
+
+## Project Roadmap
+
+- [x] ERC721 interface compatability.
+- [x] Create account.
+- [x] Update username.
+- [x] Post squeak.
+- [x] Delete squeak.
+- [x] Upgradeable contracts via [UUPS proxy pattern](https://docs.openzeppelin.com/contracts/4.x/api/proxy#UUPSUpgradeable).
+- [x] `CRTTR` console for local contract interaction.
+- [x] Platform Fees + P2P user payments.
+- [x] Liking a squeak & undoing a like.
+- [x] Disliking a squeak & undoing a dislike.
+- [x] Resqueaking & undoing a resqueak.
+- [x] Adding a `withdraw` function to transfer funds out from the treasury.
+- [x] Develop & implement "virality" algorithm.
+- [x] Scout & scout pool payments.
+- [x] Treasurer ability to manage platform fees for different interactions.
+- [x] Account moderation via account statuses.
+- [ ] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
+- [ ] Fuzz testing with [Echidna](https://github.com/crytic/echidna).
+- [ ] Deploy to an EVM compatible layer 2 solution [zkSync](https://portal.zksync.io/).
+  - Ensure its deployed via UUPS upgradeable proxy.
+- [ ] Server controller logic + frontend design.
+- [ ] Public API.
+- [ ] Auction mechanism to bid on posted squeaks.
+  - Ideally [Vickrey auctions](https://github.com/JoWxW/Vickrey-Auction/blob/master/contracts/VickreyAuction.sol).
+- [ ] Media support for squeaks via IPFS (images, video, documents,
+      etc&hellip;).
+  - Can use a pinning service such as [Pinata](https://www.pinata.cloud/) for
+    writes, and [Cloudflare IPFS](https://cloudflare-ipfs.com/ipns/ipfs.io/)
+    for reads.
+- [ ] Support for transaction-hash based generative art 🎨.
+- [ ] Native Android + iOS mobile apps.
