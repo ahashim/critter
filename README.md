@@ -40,7 +40,7 @@ The Critter monorepo and all of its submodules can be installed by cloning the
 project recursively:
 
 ```zsh
-git clone https://github.com/ahashim/critter.git --recursive
+git clone git@github.com:ahashim/critter.git --recursive
 ```
 
 ## Project Roadmap
@@ -61,17 +61,19 @@ git clone https://github.com/ahashim/critter.git --recursive
 - [x] Scout & scout pool payments.
 - [x] Treasurer ability to manage platform fees for different interactions.
 - [x] Account moderation via account statuses.
-- [ ] Auction mechanism to bid on posted squeaks.
-  - Ideally [Vickrey auctions](https://github.com/JoWxW/Vickrey-Auction/blob/master/contracts/VickreyAuction.sol).
 - [ ] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
 - [ ] Fuzz testing with [Echidna](https://github.com/crytic/echidna).
 - [ ] Deploy to an EVM compatible layer 2 solution [zkSync](https://portal.zksync.io/).
+  - Ensure its deployed via UUPS upgradeable proxy.
+- [ ] Auction mechanism to bid on posted squeaks.
+  - Ideally [Vickrey auctions](https://github.com/JoWxW/Vickrey-Auction/blob/master/contracts/VickreyAuction.sol).
 - [ ] Media support for squeaks via IPFS (images, video, documents,
       etc&hellip;).
   - Can use a pinning service such as [Pinata](https://www.pinata.cloud/) for
     writes, and [Cloudflare IPFS](https://cloudflare-ipfs.com/ipns/ipfs.io/)
     for reads.
 - [ ] Support for transaction-hash based generative art 🎨.
+- [ ] Native mobile app.
 
 ## Architecture
 
@@ -89,11 +91,26 @@ git clone https://github.com/ahashim/critter.git --recursive
   - Existing storage variables will always remain, and only be appended to.
   - New functionality will be added via additional contracts and/or deploying
     new versions of existing contract methods.
-- Deploying to [zkSync](https://portal.zksync.io/) is the currently the cheapest
-  option in terms of transaction fees.
+- Deploying to an L2 such as [zkSync](https://portal.zksync.io/) is the
+  currently the cheapest option in regards to fees & marketplace-liquidity.
 
-#### Indexer
+#### Database
 
+- All user/squeak data not-stored on chain will be in the database.
+- A single postgres instance should be enough to start.
+- `tokenID`'s can serve as initial primary keys.
+  - Will have to update this to `sha4(chainId + tokenId)` when database requires
+    partitioning.
+- Deploy to a single VM with a replica ([render.com](https://render.com)).
+
+#### Server
+
+- Server written in Golang.
+  - Using [Ent ORM](https://entgo.io/) to make graph traversal across followers
+    easier to manage.
+- Handles client/service API key generation via an `auth-service`.
+  - Can likely use [redis](https://redis.io/) k/v-store to handle session keys.
+- Handles data routing from the indexer/message-queue via a `fanout-service`.
 - Indexer written in Golang to watch on-chain event logs & create entries from
   them directly to a database.
   - Will send to the `fanout-service` on the server for further data
@@ -101,38 +118,18 @@ git clone https://github.com/ahashim/critter.git --recursive
   - Upgrade this to use a message queue after indexing (w/ built-in
     backpressure), which then sends data out to the `fanout-service` service
     when server/database load kicks up.
-- Does not need to be highly available (one instance will suffice, and can run
-  locally).
-- Deploy to a [Digital Ocean](https://www.digitalocean.com/) droplet.
-
-#### Database
-
-- All user/squeak data not-stored on chain will be in the database.
-- Database cluster will likely be MySql/MariaDB to optimize for reads.
-- `tokenID`'s can serve as initial primary keys.
-  - Will have to update this to `sha4(chainId + tokenId)` when database requires
-    partitioning.
-- Deploy across regions with [Fly.io](https://fly.io/).
+  - Local LRU cache layer for reading high volume squeaks.
+- Deploy to a single VM w/ failover ([render.com](https://render.com)).
 
 #### Client
 
-- Initial desktop user interface written in HTML/CSS/Typescript using:
+- Initial desktop & mobile user interface written in HTML/CSS/Typescript using:
   - [htmx](https://htmx.org/)
-  - [tailwind](https://tailwindcss.com/)
   - [alpinejs](https://alpinejs.dev/)
+  - [tailwind](https://tailwindcss.com/)
+- Browser only at the beginning.
 - Will use SSR from Golang server + websockets to avoid marshalling/routing
   layers.
-
-#### Server
-
-- Server written in Golang.
-  - Using [Gin web framework](https://gin-gonic.com/)
-  - Handles client/service API key generation via an `auth-service`.
-    - Can likely use `redis` or another in-memory k/v store to handle session
-      keys.
-  - Handles data routing from the indexer/message-queue via a `fanout-service`.
-  - Local LRU cache layer for reading high volume squeaks.
-- Deploy with [Fly.io](https://fly.io/).
 
 #### Search
 
@@ -141,4 +138,4 @@ git clone https://github.com/ahashim/critter.git --recursive
     3 nodes might be enough.
 - API keys generated on a per client basis via `auth-service` to directly have
   clients hit search servers (with limited permissions).
-- Deploy across regions with [Fly.io](https://fly.io/).
+- Deploy across regions ([render.com](https://render.com)).
