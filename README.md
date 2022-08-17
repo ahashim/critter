@@ -126,6 +126,7 @@ git clone git@github.com:ahashim/critter.git --recursive
 - [x] Scout & scout pool payments.
 - [x] Treasurer ability to manage platform fees for different interactions.
 - [x] Account moderation via account statuses.
+- [ ] Account relationships: following & followers.
 - [ ] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
 - [ ] Fuzz testing with [Echidna](https://github.com/crytic/echidna).
 - [ ] Deploy to an EVM compatible layer 2 solution [zkSync](https://portal.zksync.io/).
