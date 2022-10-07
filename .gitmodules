@@ -5,5 +5,5 @@
 	path = smart-contracts
 	url = git@github.com:ahashim/smart-contracts.git
 [submodule "server"]
-	path = server
+	path = web-server
 	url = git@github.com:ahashim/web-server.git
