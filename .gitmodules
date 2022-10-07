@@ -6,4 +6,4 @@
 	url = git@github.com:ahashim/smart-contracts.git
 [submodule "server"]
 	path = server
-	url = git@github.com:ahashim/server.git
+	url = git@github.com:ahashim/web-server.git
