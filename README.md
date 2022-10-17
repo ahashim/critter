@@ -10,8 +10,7 @@
 ## Core concepts
 
 Given the advertising and data-mining middlemen of traditional digital content,
-the emerging NFT market for said content, and the crypto startups merely
-mimicking the same old dynamics, Critter was born.
+and the emerging NFT market for said content, Critter was born.
 
 Utilizing ownership fundamentals and financial incentives, Critter consolidates
 the full content pipeline – creation, virality, and reward. Through that
