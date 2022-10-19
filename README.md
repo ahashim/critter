@@ -17,7 +17,8 @@ the full content pipeline – creation, virality, and reward. Through that
 process, it aims to empower makers to leverage the possibilities of blockchain
 to forge a new, more transparent system that can serve them directly.
 
-- Every address is a unique username.
+- Every address is a unique user.
+- Users can follow one another.
 - Every post (called a squeak) is an NFT.
 - Squeaks can be bought & sold via a bidding price discovery mechanism.
 - Once the author sells their squeak, the ownership is transferred to a new
@@ -29,7 +30,7 @@ to forge a new, more transparent system that can serve them directly.
   to Critter.
 - Only owners can delete squeaks.
 - Deleting a squeak costs a fee of `blocks elapsed x deletion fee`.
-- Every squeak has a "virality" coefficient that is tracked on-chain.
+- Every squeak has a "virality" score that is tracked on-chain.
 - When a squeak goes "viral", future profits from that point on are split
   among the owner and those who helped it go viral (likers & resqueakers).
 
@@ -39,7 +40,7 @@ The Critter monorepo and all of its submodules can be installed by cloning the
 project recursively:
 
 ```zsh
-git clone git@github.com:ahashim/critter.git --recursive
+git clone https://github.com/ahashim/critter.git --recursive
 ```
 
 ## Architecture
@@ -61,32 +62,21 @@ git clone git@github.com:ahashim/critter.git --recursive
 - Deploying to an L2 such as [zkSync](https://portal.zksync.io/) is the
   currently the cheapest option in regards to fees & marketplace-liquidity.
 
-#### Database
-
-- All user/squeak data not-stored on chain will be in the database.
-- A single postgres instance should be enough to start.
-- `tokenID`'s can serve as initial primary keys.
-  - Will have to update this to `sha4(chainId + tokenId)` when database requires
-    partitioning.
-- Deploy to a single VM with a replica ([render.com](https://render.com)).
-
 #### Server
 
 - Server written in Golang.
   - Using [Ent ORM](https://entgo.io/) to make graph traversal across followers
     easier to manage.
-- Handles client/service API key generation via an `auth-service`.
-  - Can likely use [redis](https://redis.io/) k/v-store to handle session keys.
-- Handles data routing from the indexer/message-queue via a `fanout-service`.
-- Indexer written in Golang to watch on-chain event logs & create entries from
-  them directly to a database.
-  - Will send to the `fanout-service` on the server for further data
-    validation/sanitization.
-  - Upgrade this to use a message queue after indexing (w/ built-in
-    backpressure), which then sends data out to the `fanout-service` service
-    when server/database load kicks up.
-  - Local LRU cache layer for reading high volume squeaks.
-- Deploy to a single VM w/ failover ([render.com](https://render.com)).
+  - Server side rendering via go templates.
+- [CQRS pattern](https://martinfowler.com/bliki/CQRS.html):
+  - Frontend posts directly to smart-contract via
+    [ethers.js](https://docs.ethers.io/v5/)
+  - Indexer ingests & writes events from the contract into the database.
+  - Webserver will serve read requests from the frontend via the database.
+- Indexer will be a separate process spawned from the server repo (to share
+  config & ORM objects).
+- Local LRU cache layer for reading high volume squeak content via redis.
+- Session store via redis.
 
 #### Client
 
@@ -94,18 +84,25 @@ git clone git@github.com:ahashim/critter.git --recursive
   - [htmx](https://htmx.org/)
   - [alpinejs](https://alpinejs.dev/)
   - [tailwind](https://tailwindcss.com/)
-- Browser only at the beginning.
-- Will use SSR from Golang server + websockets to avoid marshalling/routing
-  layers.
+
+#### Cache
+
+- Redis for in-memory cache layer.
+  - Can be used to store sessions.
+
+#### Database
+
+- All contract events emitted on-chain will be replicated the database to
+  read from via the ORM.
+- A single postgres instance with a replica should suffice.
 
 #### Search
 
 - Search cluster will be powered by [Typesense](https://typesense.org)
   - Uses [Raft algorithm](https://raft.github.io/) to maintain durability, so
-    3 nodes might be enough.
-- API keys generated on a per client basis via `auth-service` to directly have
-  clients hit search servers (with limited permissions).
-- Deploy across regions ([render.com](https://render.com)).
+    3 nodes are sufficient.
+- API keys generated on a per client basis to directly have clients hit search
+  servers (with limited permissions).
 
 ## Project Roadmap
 
@@ -127,7 +124,7 @@ git clone git@github.com:ahashim/critter.git --recursive
 - [x] Account moderation via account statuses.
 - [x] Relationships: following & followers users.
 - [x] Relationships: blocking & unblocking users.
-- [ ] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
+- [x] Harden contract with [security best practices](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/).
 - [ ] Fuzz testing with [Echidna](https://github.com/crytic/echidna).
 - [ ] Deploy to an EVM compatible layer 2 solution [zkSync](https://portal.zksync.io/).
   - Ensure its deployed via UUPS upgradeable proxy.
