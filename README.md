@@ -45,6 +45,16 @@ git clone https://github.com/ahashim/critter.git --recursive
 
 ## Architecture
 
+Critter is built using the
+[CQRS pattern](https://martinfowler.com/bliki/CQRS.html):
+
+- Webserver server-side renders the frontend.
+- Frontend posts directly to the smart-contracts via
+  [ethers.js](https://docs.ethers.io/v5/)
+- Indexer ingests & writes events monotonically from the contract into the
+  database.
+- Webserver will serve read requests from the frontend via the database.
+
 #### Algorithms
 
 - Design & test algorithms with the help of matplotlib + numpy (and some "good
@@ -68,11 +78,6 @@ git clone https://github.com/ahashim/critter.git --recursive
   - Using [Ent ORM](https://entgo.io/) to make graph traversal across followers
     easier to manage.
   - Server side rendering via go templates.
-- [CQRS pattern](https://martinfowler.com/bliki/CQRS.html):
-  - Frontend posts directly to smart-contract via
-    [ethers.js](https://docs.ethers.io/v5/)
-  - Indexer ingests & writes events from the contract into the database.
-  - Webserver will serve read requests from the frontend via the database.
 - Indexer will be a separate process spawned from the server repo (to share
   config & ORM objects).
 - Local LRU cache layer for reading high volume squeak content via redis.
