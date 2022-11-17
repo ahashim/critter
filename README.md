@@ -143,4 +143,3 @@ Critter is built using the
     writes, and [Cloudflare IPFS](https://cloudflare-ipfs.com/ipns/ipfs.io/)
     for reads.
 - [ ] Support for transaction-hash based generative art 🎨.
-- [ ] Native Android + iOS mobile apps.
